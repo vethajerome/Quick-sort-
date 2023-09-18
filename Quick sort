@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+
+int posofpivot(int arr[],int start,int end)  //to find the correct position for pivot 
+{
+    int i=start+1; //the value to be checked after pivot 
+    int pivot=arr[start]; //which indicates the first element 
+    for(int j=start+1;j<=end;j++) //gonna compare from next element till the last 
+    {
+        if(arr[j]<pivot){
+        swap(arr[i],arr[j]) ; //so it gets swapped to the next element of the pivot 
+        i+=1;} // so it goes for the next index to be swapped 
+    }
+    swap(arr[i-1],arr[start]);  //correct position of the pivot is identified 
+    return i-1; // the correct pos value of the current pivot 
+}
+
+void quicksort(int arr[],int start,int end)
+{
+    if(start<end)                 //similar to merge sort , to avoid the forever loop of single element 
+    {
+        int pivotpos=posofpivot(arr,start,end); // fetches us the position of the pivot 
+        quicksort(arr,0,pivotpos-1); //so now each time the value before the current pivot is adjusted
+        quicksort(arr,pivotpos+1,end); // similar to the values after pivot 
+    }
+}
+
+
+
+
+
+
+
+
+int main()
+{
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    quicksort(arr,0,n-1);
+    for(int i=0;i<n;i++)
+    cout<<arr[i]<<" ";
+    
+}
